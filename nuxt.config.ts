@@ -5,7 +5,9 @@ export default defineNuxtConfig({
 
   modules: ["@nuxt/ui", "@pinia/nuxt", "@vueuse/nuxt", "@nuxt/icon"],
 
-  css: ["~/assets/css/main.css"],
+  css: ["~/assets/css/main.css",
+    
+  ],
   ssr: true,
   future: {
     compatibilityVersion: 4,
