@@ -1,5 +1,17 @@
 /* ===== COLORS ===== */
 /* RED */
 @theme {
-  --color-customRed-900: #d80027;
+  --color-primary-01: #2f2e30;
+
+  --color-text: #fafafa;
+
+  --color-secondary: #f5f5f5;
+  --color-secondary-01: #fb1314;
+  --color-secondary-02: #db4444;
+
+  --color-orange: #ffad33;
+  --color-yellow: #eeff61;
+  --color-blue: #a0bce0;
+
+  --color-button-01: #00ff66;
 }
