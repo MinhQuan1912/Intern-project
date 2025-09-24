@@ -20,7 +20,8 @@
     "axios": "^1.10.0",
     "dayjs": "^1.11.13",
     "nuxt": "^3.17.5",
-    "pinia": "^3.0.3"
+    "pinia": "^3.0.3",
+    "swiper": "^12.0.2"
   },
   "devDependencies": {
     "@types/node": "^24.0.1",
