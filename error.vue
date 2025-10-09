@@ -1,14 +1,21 @@
 <template>
-    <layout-header />
-    <div class="py-35 gap-20 flex flex-col items-center justify-center">
-        <div class="flex flex-col gap-10 items-center text-black">
-            <p class="text-[110px] leading-28.75 tracking-[3%] font-medium font-[Inter]">{{ error?.statusCode }} {{ error?.message }}
-            </p>
-            <p class="leading-6">Your visited page not found. You may go home page.</p>
+    <div class="relative min-h-screen">
+        <div class="fixed left-0 right-0 z-11 w-full">
+            <LayoutHeader />
         </div>
-        <nuxt-link to="/" class="py-4 px-12 bg-secondary-02 text-text rounded-sm">Back to home page</nuxt-link>
+        <div class="relative top-17.5 sm:top-29.5 md:top-35.5 right-0 left-0 w-full">
+            <div class="py-35 gap-20 flex flex-col items-center justify-center">
+                <div class="flex flex-col gap-10 items-center text-black">
+                    <p class="text-[110px] leading-28.75 tracking-[3%] font-medium font-[Inter]">
+                        {{ error?.statusCode }} {{ error?.message }}
+                    </p>
+                    <p class="leading-6">Your visited page not found. You may go home page.</p>
+                </div>
+                <nuxt-link to="/" class="py-4 px-12 bg-secondary-02 text-text rounded-sm">Back to home page</nuxt-link>
+            </div>
+            <LayoutFooter />
+        </div>
     </div>
-    <layout-footer />
 </template>
 
 <script setup lang="ts">
@@ -17,6 +24,8 @@ import type { NuxtError } from '#app'
 defineProps<{
     error: NuxtError
 }>()
+
+
 </script>
 
 <style scoped></style>

@@ -5,6 +5,6 @@
 @import "../css/main.scss";
 /* ===== FONTS ===== */
 @theme {
-  --font-sans: "Public Sans", sans-serif;
+  --font-Inter: "Inter"
 }
 

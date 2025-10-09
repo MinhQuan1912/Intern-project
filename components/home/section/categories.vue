@@ -2,13 +2,7 @@
     <div class="px-3 xs:px-0 xs:container mx-auto">
         <div class="flex flex-col gap-15 pt-10 sm:pt-20 pb-10 sm:pb-17.5 border-b-[0.5px] border-black/30">
             <div class="flex justify-between">
-                <div class="flex flex-col gap-5">
-                    <div class="flex gap-4 items-center">
-                        <div class="w-5 h-10 bg-secondary-02 rounded-sm"></div>
-                        <p class="text-secondary-02 leading-5 font-semibold">Categories</p>
-                    </div>
-                    <p class="text-3xl xs:text-4xl leading-12 font-semibold tracking-[4%]">Browse By Category</p>
-                </div>
+                <home-section-title title="Categories" sub-title="Browse By Category" />
                 <div class="hidden md:flex gap-2 items-end">
                     <button
                         class="prevEl w-11.5 h-11.5 flex justify-center items-center rounded-full bg-secondary rotate-180 hover:bg-secondary-02 active:bg-secondary-02 active:text-white hover:text-white">
