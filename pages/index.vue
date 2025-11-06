@@ -29,6 +29,7 @@
             </div>
         </div>
     </div>
+    <home-section-our-product/>
     <home-section-feature />
     <service />
 </template>

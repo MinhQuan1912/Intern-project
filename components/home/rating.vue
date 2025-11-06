@@ -3,8 +3,8 @@
       <div class="flex">
          <template v-for="star in 5" :key="star">
             <div class="relative w-5 h-5">
-               <icons-star class="absolute top-0 left-0 opacity-25" />
-               <icons-star class="absolute top-0 left-0 text-yellow-01" :style="{
+               <icons-star class="w-5 h-5 absolute top-0 left-0 opacity-25" />
+               <icons-star class="w-5 h-5 absolute top-0 left-0 text-yellow-01" :style="{
                   clipPath: `inset(0 ${(1 - getFillPercent(star)) * 100}% 0 0)`
                }" />
             </div>
