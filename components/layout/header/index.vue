@@ -57,20 +57,20 @@
             </div>
             <div v-if="route.path !== '/sign-up' && route.path !== '/sign-in'"
               class="hidden md:flex justify-between gap-2 m:gap-4 items-center">
-              <nuxt-link to="">
-                <icons-wishlist class="h-6 w-6 m:h-8 m:w-8 hover:text-secondary-02  " />
+              <nuxt-link to="/wishlist">
+                <icons-wishlist class="h-6 w-6 m:h-8 m:w-8 hover:text-secondary-02 transition-all duration-300 ease" />
               </nuxt-link>
-              <nuxt-link to="">
-                <icons-cart class="h-6 w-6 m:h-8 m:w-8 hover:text-secondary-02  " />
+              <nuxt-link to="/cart">
+                <icons-cart class="h-6 w-6 m:h-8 m:w-8 hover:text-secondary-02 transition-all duration-300 ease" />
               </nuxt-link>
               <div class="group relative inline-block cursor-pointer">
                 <icons-header-user class="transition-all duration-300 group-hover:opacity-0 ease" />
                 <icons-header-user2
                   class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 ease " />
                 <div
-                  class="absolute right-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible 
+                  class="absolute top-9 right-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible 
              transition-all duration-300 ease backdrop-blur-3xl pt-4.5 pb-2.5 flex flex-col gap-3 rounded-sm bg-black/4"
-                  :class="{ 'backdrop-blur-none !bg-black': y > 250 }">
+                  :class="{ '!backdrop-blur-none !bg-black': y > 250 || route.path !== '/' }">
                   <template v-for="item in accountDropdown" :key="item.label">
                     <nuxt-link :to="item.to" class="pl-5 pr-3 flex gap-4 h-6 items-center text-text hover:text-secondary-02">
                       <component :is="item.icon" class="h-6 w-6" />
@@ -92,7 +92,7 @@
 </template>
 <script setup lang="ts">
 import { LazyIconsCancel, LazyIconsHeaderLogOut, LazyIconsHeaderMallbag, LazyIconsHeaderReview, LazyIconsHeaderUser } from '#components';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -110,13 +110,13 @@ const marketing = ref([
 ])
 const menuHeader = ref([
   { label: 'Home', to: '/', },
-  { label: 'Contact', to: '/dwa', },
+  { label: 'Contact', to: '/contact', },
   { label: 'About', to: '/about', },
   { label: 'Sign up', to: '/sign-up', },
 ])
 
 const accountDropdown = ref([
-  { label: 'Manage My Account', icon: LazyIconsHeaderUser, to: '' },
+  { label: 'Manage My Account', icon: LazyIconsHeaderUser, to: '/account' },
   { label: 'My Order', icon: LazyIconsHeaderMallbag, to: '' },
   { label: 'My Cancellations', icon: LazyIconsCancel, to: '' },
   { label: 'My Reviews', icon: LazyIconsHeaderReview, to: '' },

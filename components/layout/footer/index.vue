@@ -80,7 +80,7 @@
 import { IconsSocialMediaFacebook, IconsSocialMediaInstagram, IconsSocialMediaLinkedin, IconsSocialMediaTwitter } from '#components';
 
 const account = ref([
-  { label: 'My Account', to: '/' },
+  { label: 'My Account', to: '/account' },
   { label: 'Login / Register', to: '/' },
   { label: 'Cart', to: '/' },
   { label: 'Wishlist', to: '/' },
@@ -90,7 +90,7 @@ const quickLink = ref([
   { label: 'Privacy Policy', to: '/' },
   { label: 'Terms Of Use', to: '/' },
   { label: 'FAQ', to: '/' },
-  { label: 'Contact', to: '/' },
+  { label: 'Contact', to: '/contact' },
 ])
 const socialMedia = ref([
   { label: markRaw(IconsSocialMediaFacebook), to: '/' },

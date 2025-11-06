@@ -11,7 +11,9 @@
                     </p>
                     <p class="leading-6">Your visited page not found. You may go home page.</p>
                 </div>
-                <nuxt-link to="/" class="py-4 px-12 bg-secondary-02 text-text rounded-sm">Back to home page</nuxt-link>
+                <nuxt-link to="/"
+                    class="py-4 px-12 hover:shadow-lg text-text bg-secondary-02 hover:text-secondary-02 active:text-secondary-02 hover:bg-text active:bg-text rounded-sm">Back
+                    to home page</nuxt-link>
             </div>
             <LayoutFooter />
         </div>

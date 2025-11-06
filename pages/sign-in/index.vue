@@ -1,5 +1,4 @@
 <template>
-    
         <div class="flex flex-col gap-10 w-full md:w-3/5 xl:w-auto">
             <div class="flex flex-col gap-12">
                 <div class="flex flex-col gap-6 text-black">
@@ -19,7 +18,6 @@
                 <button class="text-secondary-02 leading-6">Forget Password?</button>
             </div>
         </div>
-    
 </template>
 
 <script setup lang="ts">

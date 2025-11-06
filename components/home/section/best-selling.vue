@@ -16,39 +16,7 @@
             }
          }">
             <swiper-slide v-for="product in productList" :key="product.id">
-               <div class="h-87.5 flex flex-col gap-4">
-                  <div
-                     class="h-62.5 px-10 py-9 bg-secondary flex items-center justify-center relative group overflow-hidden">
-                     <button
-                        class="absolute bottom-0 left-0 w-full bg-black h-10 flex justify-center leading-6 font-medium hover:bg-secondary-02 text-white items-center translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 ease">
-                        Add To Cart
-                     </button>
-                     <div class="w-full h-full">
-                        <img :src="product.image" :alt="product.name" class="w-full h-full object-contain">
-                     </div>
-                     <div
-                        class="absolute top-3 right-3 translate-x-full group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition-all duration-300 ease flex flex-col gap-2">
-                        <button
-                           class="h-8.5 w-8.5 bg-white flex justify-center items-center rounded-full hover:bg-secondary-02 active:bg-secondary-02 hover:text-text active:text-text">
-                           <icons-heart class="w-6 h-6" />
-                        </button>
-                        <button
-                           class="h-8.5 w-8.5 bg-white flex justify-center items-center rounded-full hover:bg-secondary-02 active:bg-secondary-02 hover:text-text active:text-text">
-                           <icons-quick-view />
-                        </button>
-                     </div>
-                  </div>
-                  <div class="flex flex-col gap-2">
-                     <nuxt-link to="" class="leading-6 font-medium hover:text-secondary-02">{{ product.name
-                     }}</nuxt-link>
-                     <div class="flex gap-3">
-                        <p class="leading-6 font-medium text-secondary-02">${{ product.price * (1 - product.discount) }}
-                        </p>
-                        <p class="leading-6 font-medium opacity-50 line-through">${{ product.price }}</p>
-                     </div>
-                     <home-rating :review="product.review" :ratings="product.rating" />
-                  </div>
-               </div>
+               <card :image="product.image" :name="product.name" :price="product.price" :discount="product.discount" :review="product.review" :rating="product.rating"/>
             </swiper-slide>
          </swiper>
       </div>
