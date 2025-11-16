@@ -24,7 +24,7 @@
                         ${{ product.price }}
                      </td>
                      <td class="px-10 py-6">
-
+                        <input type="number" name="" value="1" id="" class="w-18 h-11 px-3 py-1.5 rounded-sm !border-[1.5px] !border-black/40">
                      </td>
                      <td class="px-10 py-6">
 

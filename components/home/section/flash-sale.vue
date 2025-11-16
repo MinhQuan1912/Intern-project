@@ -45,9 +45,9 @@
          </swiper>
       </div>
       <div class="py-15 flex justify-center items-center border-b-[0.5px] border-black/30">
-         <button
+         <nuxt-link to="/product"
             class="px-12 py-4 flex justify-center items-center rounded-sm hover:shadow-lg text-text bg-secondary-02 hover:text-secondary-02 active:text-secondary-02 hover:bg-text active:bg-text">View
-            All Products</button>
+            All Products</nuxt-link>
       </div>
    </div>
 </template>

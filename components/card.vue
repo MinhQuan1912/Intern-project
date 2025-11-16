@@ -29,12 +29,15 @@
       </div>
       <div class="flex flex-col gap-2">
          <nuxt-link to="" class="leading-6 font-medium hover:text-secondary-02">{{ props.name
-         }}</nuxt-link>
+            }}</nuxt-link>
          <div class="flex gap-3">
             <p class="leading-6 font-medium text-secondary-02">${{ props.price * (1 - props.discount) }}</p>
             <p class="leading-6 font-medium opacity-50 line-through">${{ props.price }}</p>
          </div>
-         <home-rating v-if="props.rating  && props.review" :review="props.review" :ratings="props.rating" />
+         <div class="flex gap-2 items-center">
+            <home-rating v-if="props.rating" :ratings="props.rating" />
+            <p class="text-sm leading-5.25 font-semibold opacity-50">({{ props.review }})</p>
+         </div>
       </div>
    </div>
 </template>

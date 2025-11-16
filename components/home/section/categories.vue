@@ -35,7 +35,7 @@
                 <swiper-slide v-for="item in list" :key="item.label">
                     <div
                         class="h-36.25 rounded-sm border border-black/30 flex flex-col items-center justify-center gap-4 
-                    cursor-pointer hover:text-white hover:bg-secondary-02 active:text-white active:bg-secondary-02 transition-colors duration-300 ease">
+                    cursor-pointer hover:border-transparent hover:text-white hover:bg-secondary-02 active:text-white active:bg-secondary-02 transition-colors duration-300 ease">
                         <component :is="item.icon" />
                         <p>{{ item.label }}</p>
                     </div>
