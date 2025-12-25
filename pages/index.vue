@@ -34,7 +34,7 @@
     <service />
 </template>
 <script setup lang="ts">
-import { useCountdown } from '~/composable/useCountDown';
+import { useCountdown } from '~/composables/useCountDown';
 const targetDate = new Date()
 targetDate.setDate(targetDate.getDate() + 5)
 const { days, hours, minutes, seconds } = useCountdown(targetDate)

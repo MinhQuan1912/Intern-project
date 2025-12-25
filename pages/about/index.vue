@@ -90,7 +90,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { useFormatNumber } from '~/composable/useFormatNumber';
+import { useFormatNumber } from '~/composables/useFormatNumber';
 const { formatNum } = useFormatNumber()
 const service1 = ref([
     { label: 'Sallers active our site', value: 10532, icon: LazyIconsAboutUsShop },

@@ -8,5 +8,10 @@ export function useFormatNumber() {
     }
     return val.toString();
   };
-  return { formatNum };
+  const formatFull = (val?: number): string => {
+    if (val === null || val === undefined) return "0";
+
+    return new Intl.NumberFormat("en-US").format(val);
+  };
+  return { formatNum, formatFull };
 }

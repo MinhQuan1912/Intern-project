@@ -63,7 +63,7 @@
               <nuxt-link to="/cart">
                 <icons-cart class="h-6 w-6 m:h-8 m:w-8 hover:text-secondary-02 transition-all duration-300 ease" />
               </nuxt-link>
-              <div class="group relative inline-block cursor-pointer">
+              <div v-if="authStore.isLoggedIn" class="group relative inline-block cursor-pointer">
                 <icons-header-user class="transition-all duration-300 group-hover:opacity-0 ease" />
                 <icons-header-user2
                   class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 ease " />
@@ -72,9 +72,28 @@
              transition-all duration-300 ease backdrop-blur-3xl pt-4.5 pb-2.5 flex flex-col gap-3 rounded-sm bg-black/4"
                   :class="{ '!backdrop-blur-none !bg-black': y > 250 || route.path !== '/' }">
                   <template v-for="item in accountDropdown" :key="item.label">
-                    <nuxt-link :to="item.to" class="pl-5 pr-3 flex gap-4 h-6 items-center text-text hover:text-secondary-02">
+                    <!-- Logout -->
+                    <button v-if="item.label === 'Logout'" @click="handleLogout"
+                      class="pl-5 pr-3 flex gap-4 h-6 items-center text-text hover:text-secondary-02 w-full text-left">
                       <component :is="item.icon" class="h-6 w-6" />
-                      <p class="whitespace-nowrap text-sm leading-5.25">{{ item.label }}</p>
+                      <p class="whitespace-nowrap text-sm leading-5.25">
+                        {{ item.label }}
+                      </p>
+                    </button>
+                    <nuxt-link v-if="item.label === 'My Order'" to="/orders"
+                      class="pl-5 pr-3 flex gap-4 h-6 items-center text-text hover:text-secondary-02 w-full text-left">
+                      <component :is="item.icon" class="h-6 w-6" />
+                      <p class="whitespace-nowrap text-sm leading-5.25">
+                        {{ item.label }}
+                      </p>
+                    </nuxt-link>
+                    <!-- Các item bình thường -->
+                    <nuxt-link v-else :to="item.to"
+                      class="pl-5 pr-3 flex gap-4 h-6 items-center text-text hover:text-secondary-02">
+                      <component :is="item.icon" class="h-6 w-6" />
+                      <p class="whitespace-nowrap text-sm leading-5.25">
+                        {{ item.label }}
+                      </p>
                     </nuxt-link>
                   </template>
                 </div>
@@ -97,6 +116,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+const authStore = useAuthStore()
 const { y } = useWindowScroll();
 const scrollY = computed(() => y.value)
 const route = useRoute()
@@ -128,5 +148,9 @@ const selectLanguage = (item: string) => {
   selectedLanguage.value = item
 }
 
+const handleLogout = () => {
+  authStore.logout()
+  router.push('/sign-in')
+}
 </script>
 <style lang="scss" scoped></style>

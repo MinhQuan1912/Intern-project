@@ -4,11 +4,8 @@
          <div class="flex flex-col gap-15">
             <div class="flex justify-between items-center">
                <p class="text-xl leading-6.5 text-black">Wishlist</p>
-               <button
-                  class="px-12 py-4 flex items-center justify-center leading-6 font-medium rounded-sm !border !border-black/50 hover:bg-secondary-02 hover:text-text">Move
-                  All To Bag</button>
             </div>
-            <swiper v-if="productList" :modules="[Pagination, Navigation]" class="w-full" :breakpoints="{
+            <swiper v-if="wishlistItems.length" :modules="[Pagination, Navigation]" class="w-full" :breakpoints="{
                   1024: {
                      slidesPerView: 4,
                      slidesPerGroup: 4,
@@ -16,9 +13,9 @@
                      allowTouchMove: false
                   }
                }">
-               <swiper-slide v-for="product in productList" :key="product.id">
-                  <card :image="product.image" :name="product.name" :price="product.price" :delete="true" :heart="false"
-                     :quick-view="false" />
+               <swiper-slide v-for="product in wishlistItems" :key="product.id">
+                  <card :wishlist-id="product.id" :id="product.product.id" :image="product.product.imageUrl" :name="product.product.name" :oldPrice="product.product.oldPrice"
+                     :newPrice="product.product.newPrice" :heart="false" :quickView="true" :delete="true" @remove="handleRemove"/>
                </swiper-slide>
             </swiper>
             <div v-else class="flex justify-center text-4xl">You haven’t added any products to your wishlist yet.</div>
@@ -34,53 +31,36 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-const productList = ref([
-   {
-      id: 1,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 160,
-      discount: 0.3,
-      review: 99,
-      rating: 3.5
-   },
-   {
-      id: 2,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      discount: 0.3,
-      review: 99,
-      rating: 3
-   },
-   {
-      id: 3,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      discount: 0.3,
-      review: 99,
-      rating: 4
-   },
-   {
-      id: 4,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      discount: 0.3,
-      review: 99,
-      rating: 5
-   },
-   {
-      id: 5,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      discount: 0.3,
-      review: 99,
-      rating: 5
-   },
-])
+const { getWishlist, removeFromWishlist } = useApi()
+const authStore = useAuthStore()
+const router = useRouter()
+
+const loading = ref(true)
+const wishlistItems = ref<any[]>([])
+
+const loadWishlist = async () => {
+   if (!authStore.isLoggedIn) {
+      router.push('/signin')
+      return
+   }
+
+   loading.value = true
+   const r = await getWishlist()
+   if (r.data) {
+      wishlistItems.value = r.data as any[]
+   }
+   loading.value = false
+}
+
+const handleRemove = async (wishlistId: number) => {
+   await removeFromWishlist(wishlistId)
+   wishlistItems.value = wishlistItems.value.filter(
+      item => item.id !== wishlistId
+   )
+   await loadWishlist()
+}
+
+onMounted(loadWishlist)
 </script>
 
 <style scoped>

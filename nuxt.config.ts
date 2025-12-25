@@ -35,6 +35,11 @@ export default defineNuxtConfig({
           onload: "this.onload=null;this.rel='stylesheet'",
         },
       ],
+      title: "Shop",
+      meta: [
+        { charset: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+      ],
     },
   },
   components: [
@@ -43,4 +48,9 @@ export default defineNuxtConfig({
       global: true,
     },
   ],
+  runtimeConfig: {
+    public: {
+      apiBase: "http://localhost:8080/api",
+    },
+  },
 });
