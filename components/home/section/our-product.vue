@@ -26,13 +26,13 @@
                rows: 2,
                fill: 'row'
             }">
-            <swiper-slide v-for="product in productList1" :key="product.id">
-               <card :image="product.image" :name="product.name" :price="product.price" :review="product.review"
-                  :rating="product.rating" />
+            <swiper-slide v-for="product in products" :key="product.id">
+               <card :id="product.id" :image="product.imageUrl" :name="product.name" :oldPrice="product.oldPrice"
+                  :newPrice="product.newPrice" :heart="true" :quickView="true" :delete="false" />
             </swiper-slide>
          </swiper>
          <div class="flex justify-center items-center">
-            <nuxt-link to=""
+            <nuxt-link to="/product"
                class="px-12 py-4 flex justify-center items-center rounded-sm hover:shadow-lg text-text bg-secondary-02 hover:text-secondary-02 active:text-secondary-02 hover:bg-text active:bg-text">View
                All Products</nuxt-link>
          </div>
@@ -47,90 +47,10 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/grid'
-
-const productList1 = ref([
-   {
-      id: 1,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 160,
-      review: 99,
-      rating: 3.5
-   },
-   {
-      id: 2,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      review: 99,
-      rating: 3
-   },
-   {
-      id: 3,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      review: 99,
-      rating: 4
-   },
-   {
-      id: 4,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      review: 99,
-      rating: 5
-   },
-   {
-      id: 5,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      review: 99,
-      rating: 5
-   },
-   {
-      id: 6,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 160,
-      review: 99,
-      rating: 3.5
-   },
-   {
-      id: 7,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      review: 99,
-      rating: 3
-   },
-   {
-      id: 8,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      review: 99,
-      rating: 4
-   },
-   {
-      id: 9,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      review: 99,
-      rating: 5
-   },
-   {
-      id: 10,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      review: 99,
-      rating: 5
-   },
-
-])
+const { getAllProducts } = useApi()
+const products = ref<any[]>([])
+const p = await getAllProducts()
+if (p.data) products.value = p.data as any[]
 
    
 </script>

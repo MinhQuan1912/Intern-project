@@ -15,8 +15,9 @@
                allowTouchMove: false
             }
          }">
-            <swiper-slide v-for="product in productList" :key="product.id">
-               <card :image="product.image" :name="product.name" :price="product.price" :discount="product.discount" :review="product.review" :rating="product.rating"/>
+            <swiper-slide v-for="product in products" :key="product.id">
+               <card :id="product.id" :image="product.imageUrl" :name="product.name" :oldPrice="product.oldPrice"
+                  :newPrice="product.newPrice" :heart="true" :quickView="true" :delete="false" />
             </swiper-slide>
          </swiper>
       </div>
@@ -29,54 +30,11 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+const { getAllProducts } = useApi()
+const products = ref<any[]>([])
+const p = await getAllProducts()
+if (p.data) products.value = p.data as any[]
 
-const productList = ref([
-   {
-      id: 1,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 160,
-      discount: 0.3,
-      review: 99,
-      rating: 3.5
-   },
-   {
-      id: 2,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      discount: 0.3,
-      review: 99,
-      rating: 3
-   },
-   {
-      id: 3,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      discount: 0.3,
-      review: 99,
-      rating: 4
-   },
-   {
-      id: 4,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      discount: 0.3,
-      review: 99,
-      rating: 5
-   },
-   {
-      id: 5,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      discount: 0.3,
-      review: 99,
-      rating: 5
-   },
-])
 </script>
 
 <style scoped></style>

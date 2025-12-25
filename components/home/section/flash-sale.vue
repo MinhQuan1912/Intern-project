@@ -39,8 +39,9 @@
                   allowTouchMove: false
                }
             }">
-            <swiper-slide v-for="product in productList" :key="product.id">
-               <card :image="product.image" :name="product.name" :price="product.price" :discount="product.discount" :review="product.review" :rating="product.rating"/>
+            <swiper-slide v-for="product in topDiscountProducts" :key="product.id">
+               <card :id="product.id" :image="product.imageUrl" :name="product.name" :oldPrice="product.oldPrice"
+                  :newPrice="product.newPrice" :heart="true" :quickView="true" :delete="false" />
             </swiper-slide>
          </swiper>
       </div>
@@ -53,68 +54,36 @@
 </template>
 
 <script setup lang="ts">
-import { useCountdown } from '~/composable/useCountDown';
+import { useCountdown } from '~/composables/useCountDown';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+const { getAllProducts } = useApi()
 const countdownUnits = computed(() => [
    { label: 'Days', value: days.value },
    { label: 'Hours', value: hours.value },
    { label: 'Minutes', value: minutes.value },
    { label: 'Seconds', value: seconds.value },
 ])
-const productList = ref([
-   {
-      id: 1,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 160,
-      discount: 0.3,
-      review: 99,
-      rating: 3.5
-   },
-   {
-      id: 2,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      discount: 0.3,
-      review: 99,
-      rating: 3
-   },
-   {
-      id: 3,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      discount: 0.3,
-      review: 99,
-      rating: 4
-   },
-   {
-      id: 4,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      discount: 0.3,
-      review: 99,
-      rating: 5
-   },
-   {
-      id: 5,
-      name: "IPS LCD Gaming Monitor",
-      image: '/images/product.png',
-      price: 370,
-      discount: 0.3,
-      review: 99,
-      rating: 5
-   },   
-])
 const targetDate = new Date()
 targetDate.setDate(targetDate.getDate() + 5)
 const { days, hours, minutes, seconds } = useCountdown(targetDate)
+const products = ref<any[]>([])
+const p = await getAllProducts()
+if (p.data) products.value = p.data as any[]
+const topDiscountProducts = computed(() => {
+   return [...products.value]
+      .filter(p => p.oldPrice > 0 && p.newPrice > 0)
+      .sort((a, b) => {
+         const discountA = (a.oldPrice - a.newPrice) / a.oldPrice
+         const discountB = (b.oldPrice - b.newPrice) / b.oldPrice
+         return discountB - discountA 
+      })
+      .slice(0, 8)
+})
+
 </script>
 
 <style scoped></style>

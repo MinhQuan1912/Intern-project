@@ -21,4 +21,5 @@
 <script lang="ts" setup>
 const { y } = useWindowScroll({ behavior: 'smooth' });
 const scrollY = computed(() => y.value)
+
 </script>

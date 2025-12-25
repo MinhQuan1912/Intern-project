@@ -11,28 +11,36 @@
                   </tr>
                </thead>
                <tbody>
-                  <tr v-for="product in productList" :key="product.id">
+                  <tr v-for="product in cartItems" :key="product.id">
                      <td class="px-10 py-6">
                         <div class="flex gap-5 items-center">
                            <div class="w-13.5 h-13.5 flex items-center justify-center">
-                              <img :src="product.image" :alt="product.name">
+                              <img :src="getImageUrl(product.product.imageUrl)" :alt="product.name">
                            </div>
-                           <nuxt-link>{{ product.name }}</nuxt-link>
+                           <nuxt-link :to="`/product/${product.id}`">{{ product.product.name }}</nuxt-link>
                         </div>
                      </td>
                      <td class="px-10 py-6">
-                        ${{ product.price }}
+                        {{ formatFull(product.price) }}đ
                      </td>
                      <td class="px-10 py-6">
-                        <input type="number" name="" value="1" id="" class="w-18 h-11 px-3 py-1.5 rounded-sm !border-[1.5px] !border-black/40">
+                        <input type="number" min="1" class="w-20 h-11 px-3 rounded-sm border border-black/40"
+                           v-model.number="product.quantity" @change="handleQuantityChange(product)" />
                      </td>
-                     <td class="px-10 py-6">
+                     <td class="px-10 py-6 font-medium">
+                        {{ formatFull(product.price * product.quantity) }}đ
+                     </td>
 
+                     <td class="px-10 py-6">
+                        <button class="text-red-500 hover:underline" @click="handleRemove(product.id)">
+                           Remove
+                        </button>
                      </td>
                   </tr>
                </tbody>
             </table>
-            <nuxt-link to="/" class="px-12 py-4 flex justify-center items-center w-fit rounded-sm border border-black/50 hover:border-transparent hover:bg-secondary-02 hover:text-text">Return
+            <nuxt-link to="/"
+               class="px-12 py-4 flex justify-center items-center w-fit rounded-sm border border-black/50 hover:border-transparent hover:bg-secondary-02 hover:text-text">Return
                To Shop</nuxt-link>
          </div>
          <div class="flex justify-between">
@@ -48,7 +56,7 @@
                <div class="flex flex-col gap-4">
                   <div class="flex justify-between items-center">
                      <p class="text-black leading-6">Subtotal:</p>
-                     <p class="text-black leading-6">$1750</p>
+                     <p class="text-black leading-6">{{ formatFull(cartSubtotal) }}đ</p>
                   </div>
                   <div class="border-t border-black"></div>
                   <div class="flex justify-between items-center">
@@ -58,7 +66,7 @@
                   <div class="border-t border-black"></div>
                   <div class="flex justify-between items-center">
                      <p class="text-black leading-6">Total:</p>
-                     <p class="text-black leading-6">$1750</p>
+                     <p class="text-black leading-6">{{ formatFull(cartSubtotal) }}đ</p>
                   </div>
                   <div class="flex justify-center">
                      <nuxt-link to="/cart/checkout"
@@ -74,31 +82,51 @@
 
 <script setup lang="ts">
 const table = ['Product', 'Price', 'Quantity', 'Subtotal']
-const productList = ref([
-   {
-      id: 1,
-      name: 'LCD Monitor',
-      image: '/images/product.png',
-      price: 650,
-   },
-   {
-      id: 2,
-      name: 'LCD Monitor',
-      image: '/images/product.png',
-      price: 650,
-   },
-   {
-      id: 3,
-      name: 'LCD Monitor',
-      image: '/images/product.png',
-      price: 650,
-   },
-])
+const { getCart, updateCartItem, removeFromCart } = useApi()
+const config = useRuntimeConfig()
+const { formatFull } = useFormatNumber()
+const loading = ref(true)
+const cartItems = ref<any[]>([])
+
+const loadCart = async () => {
+   loading.value = true
+   const r = await getCart()
+   if (r.data) {
+      cartItems.value = r.data as any[]
+   }
+   loading.value = false
+}
+
+const handleQuantityChange = async (item: any) => {
+   if (item.quantity < 1) item.quantity = 1
+
+   await updateCartItem(item.id, item.quantity)
+}
+
+const handleRemove = async (cartItemId: number) => {
+   await removeFromCart(cartItemId)
+   cartItems.value = cartItems.value.filter(i => i.id !== cartItemId)
+}
+
+const cartSubtotal = computed(() =>
+   cartItems.value.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+   )
+)
+
+const getImageUrl = (url: string) => {
+   if (!url) return 'https://via.placeholder.com/150'
+   if (url.startsWith('http')) return url
+   return `${config.public.apiBase.replace('/api', '')}${url}`
+}
+
+onMounted(loadCart)
+
 </script>
 
 <style lang="scss" scoped>
 tr {
    box-shadow: 0px 1px 13px 0px #0000000D;
 }
-
 </style>
