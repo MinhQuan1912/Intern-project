@@ -80,7 +80,7 @@
                         {{ item.label }}
                       </p>
                     </button>
-                    <nuxt-link v-if="item.label === 'My Order'" to="/orders"
+                    <nuxt-link v-else-if="item.label === 'My Order'" to="/orders"
                       class="pl-5 pr-3 flex gap-4 h-6 items-center text-text hover:text-secondary-02 w-full text-left">
                       <component :is="item.icon" class="h-6 w-6" />
                       <p class="whitespace-nowrap text-sm leading-5.25">
